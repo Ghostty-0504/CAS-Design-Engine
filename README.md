@@ -45,8 +45,10 @@ System）**路线。每一项输出都严格遵循物质守恒定律与生物动
 
 引擎仅依赖 Python 标准库，克隆仓库后即可直接运行：
 
+```
 git clone https://github.com/yourusername/CAS-AutoOptimizer.git
 cd CAS-AutoOptimizer
+```
 
 请确保系统中已安装 Python 3.7 或更高版本。
 
