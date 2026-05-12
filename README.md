@@ -1,113 +1,126 @@
+这份中文版 README
+结合了环境工程的专业术语和计算机科学的严谨表达，突出了你代码中**“多级约束”、“专家系统”和“白盒可解释性”**的优势。你可以直接将其保存为
+README.md 上传到 GitHub。
+
 🌊 CAS-AutoOptimizer
 
-Intelligent Design & Optimization Engine for Plug-Flow Conventional Activated
-Sludge (CAS) Processes
+推流式活性污泥法（CAS）全自动寻优设计与工程诊断引擎
 
-Python 3.7+ License: MIT PRs Welcome
+Python 3.7+ License: MIT
 
-CAS-AutoOptimizer is a Python-based intelligent engineering calculation and
-auto-optimization engine tailored for Environmental Engineering. It focuses on
-the forward design and parameter optimization of the Plug-Flow Conventional
-Activated Sludge (CAS) process.
+CAS-AutoOptimizer 是一款专为环境工程领域打造的开源 Python 计算引擎，专注于**推流式活性污泥法（CAS, Conventional
+Activated Sludge）**的正向设计、参数寻优与合规性诊断。
 
-Unlike traditional calculators, this engine incorporates a Constraint-Based AI
-Extremum-Seeking Algorithm that automatically finds the most economical
-structural and aeration layout while strictly adhering to national effluent
-standards.
+不同于传统的“填表式” Excel 计算书或黑盒化的现代深度学习，本引擎基于确定性动力学方程（Monod
+方程），并构建了一个基于多级约束的工程专家系统（Expert
+System）。它能够通过网格搜索（Grid
+Search）算法，在庞大的参数空间中自动推演，寻找出既满足国家环保排放标准，又符合工程规范，且土建与运行造价最低的最优解。
 
-✨ Core Mechanics (Three-Tier Priority System)
+✨ 核心寻优机制：三级降维约束求解器
 
-The engine's optimization logic strictly follows a three-tier priority
-evaluation:
+在寻找最优设计方案时，系统严格遵循工程正向设计逻辑，采用三级优先级评价体系（通过 Python 元组比较机制优雅实现）：
 
-1.  🔴 Priority 1 (Strict Compliance / Fatal Errors): Effluent water quality
-    (BOD, NH3-N) must meet the environmental discharge standards. Any design
-    failing this is immediately rejected.
-2.  🟡 Priority 2 (Process Norms / Warnings): Process parameters (e.g., F/M
-    ratio, Volumetric Loading, Return ratio, tank geometry) should ideally fall
-    within standard empirical ranges to ensure stable operation.
-3.  🟢 Priority 3 (Economic Optimization): Based on satisfying the above
-    conditions, the engine seeks the solution with the lowest construction
-    (volume) and operational (aeration) costs.
+1.  🔴 优先级一（强制红线 / 一票否决）： 出水水质（BOD、氨氮等）必须在冬夏两季均达标。任何突破物理化学动力学极限、导致出水超标的方案，将被直接丢弃。
+2.  🟡 优先级二（工程规范 / 尽量满足）：
+    在保证水质达标的前提下，审查工艺参数（如容积负荷、污泥负荷、回流比、宽深比等）是否落在经典教材或国家设计规范的经验区间内。
+3.  🟢 优先级三（经济目标函数）： 在满足上述两者约束的安全边界内，算法将锁定土建代价（总容积最小）或运行代价（需风量匹配最优）最低的结构方案。
 
-🚀 Key Features
+🚀 核心特性
 
-  - Automated Parameter Optimization: Automatically determines the optimal Mixed
-    Liquor Suspended Solids (MLSS), Sludge Loading Rate (Ns), tank dimensions,
-    and layout.
-  - Seasonal Simulation: Simulates process performance (especially nitrification
-    limits and aeration demand) across both Summer and Winter conditions.
-  - Aeration Network Design: Automatically calculates and balances the total
-    aeration units, rows, and spacings required.
-  - Engineering Audit System: Generates a comprehensive "health check" report,
-    flagging deviations from engineering norms and fatal regulatory violations.
-  - Zero Dependencies: Built entirely with Python's standard library (math,
-    dataclasses, typing, etc.). No external heavy packages required!
+  - 🤖 算法驱动全维寻优： 告别人工盲目试凑。系统可自动遍历污泥浓度（MLSS）、污泥负荷（Ns）、有效水深及构筑物几何尺寸的组合，锁定全局最优解。
+  - 🌡️ 冬夏双季动力学模拟： 内置完整的温度补偿系数，自动测算夏季极限需氧量与冬季硝化受限工况，确保全天候达标。
+  - 🌬️ 曝气管网自动布设： 根据巅峰产气量需求与池体几何结构，自动计算并排布曝气器总数、列数及间距。
+  - 🏥 数字化工程审查大厅： 犹如一位数字化的总工程师，自动生成健康诊断报告，将设计结果分为“红灯（致命违规）”、“黄灯（妥协偏离）”与“绿灯（完美解）”。
+  - 📦 零第三方依赖： 纯原生 Python 编写，无需安装 numpy、pandas 等庞大的科学计算库，极致轻量，即开即用。
 
-📦 Installation
+💡 为什么没有使用“神经网络/机器学习”？
 
-Since the engine relies only on Python standard libraries, installation is
-incredibly simple:
+（架构哲学）
 
-1.  Clone the repository:
-    git clone https://github.com/yourusername/CAS-AutoOptimizer.git
-    cd CAS-AutoOptimizer
-2.  Ensure you have Python 3.7 or higher installed.
+在土木与环境工程设计中，**安全性与可解释性（Explainability）高于一切。基于数据的深度学习AI由于其“黑盒”属性，无法保证100%的确定性。
+因此，本项目选择了经典人工智能（GOFAI）中的专家系统（Expert
+System）**路线。每一项输出都严格遵循物质守恒定律与生物动力学方程，参数偏差均可追溯。这种“白盒化”的硬核推演，才是真正适合工程落地的计算体系。
 
-💡 Quick Start
+📦 安装说明
 
-You can run the engine in three different modes depending on your needs.
+引擎仅依赖 Python 标准库，克隆仓库后即可直接运行：
 
-1. Free Full-Dimensional Optimization (Lowest Cost Mode)
+git clone https://github.com/yourusername/CAS-AutoOptimizer.git
+cd CAS-AutoOptimizer
 
-Let the engine figure out everything based solely on influent and effluent
-boundaries.
+请确保系统中已安装 Python 3.7 或更高版本。
 
+🚀 快速开始
+
+根据您的使用场景，引擎支持三种不同的运行模式：
+
+模式一：自由全维寻优模式（目标：造价最低）
+
+只提供进出水边界条件，让引擎放开手脚，自动寻找最省钱且合规的设计。
+
+```
 from cas_engine import CASConfig, run_cas_engine
 
-# Initialize the config with your project's influent constraints
+# 仅配置进水水量与水质（出水标准已在内部默认设置为一级B，也可按需修改）
 config = CASConfig(
-    Q=2000,      # Influent Flow Rate (m3/d)
-    S0=300,      # Influent BOD5 (mg/L)
-    Nn=40,       # Influent TN/NH3-N (mg/L)
+    Q=2000,      # 进水流量 (m3/d)
+    S0=300,      # 进水 BOD5 (mg/L)
+    Nn=40,       # 进水 氨氮 (mg/L)
 )
 
-# Run the engine
+# 启动引擎
 run_cas_engine(config)
+```
 
-2. Constrained Optimization (e.g., Fixed Volume)
+模式二：定容积约束寻优模式（适用改造项目或用地受限）
 
-If the footprint of your wastewater treatment plant is limited, lock the total
-volume and let the engine optimize the remaining parameters.
+如果水厂用地已被锁死（例如总体积不能超过 5000 m³），让引擎在容积受限的条件下进行补救寻优。
 
+```
 config_fixed_v = CASConfig(
     Q=2000, 
     S0=250,       
     Nn=40,
-    V_design=5000 # Lock total volume to 5000 m3
+    V_design=5000 # 强制锁死全厂曝气池总容积
 )
 
 run_cas_engine(config_fixed_v)
+```
 
-3. Manual Checking Mode (Engineering Audit)
+模式三：人工强制核算 / 传统校核模式
 
-If you already have a complete design and just want the engine to audit it
-against engineering norms and seasonal changes.
+如果您已经完成了所有 CAD 图纸设计，或者需要对一座现有的/已建成的污水处理厂进行评估，您可以将所有的负荷、几何尺寸、设备数量全部强制锁死。此时系统将关闭 AI 寻优，化身严苛的“裁判”，仅执行动力学季节核算与工程规范诊断。
+```
+from cas_engine import CASConfig, run_cas_engine
 
 config_manual = CASConfig(
-    Q=2000, S0=200,
-    Ns=0.3, X=3000,         # Lock Loading Rate and MLSS
-    h=4.5, n_tanks=2,       # Lock Geometry
-    n_corridors=3, rows_per_corridor=2
+    # [进水条件边界]
+    Q=2000, S0=200, Nn=40,
+    
+    # [1. 锁死工艺核心参数]
+    V_design=3300,          # 强制锁定现有的曝气池总容积
+    Ns=0.3,                 # 强制锁定污泥负荷
+    X=3000,                 # 强制锁定 MLSS 污泥浓度
+    
+    # [2. 锁死构筑物几何参数]
+    h=4.5,                  # 锁定有效水深
+    n_tanks=2,              # 锁定总池数
+    n_corridors=3,          # 锁定单池廊道数
+    b_design=6.0,           # 锁定单廊道宽度
+    
+    # [3. 锁死底层曝气设备排布]
+    rows_per_corridor=2,    # 锁定单廊道内曝气管排数
+    n_total_design=1200     # 锁定全厂曝气盘/管总个数
 )
 
+# 启动引擎进行健康体检
 run_cas_engine(config_manual)
+```
 
-📊 Sample Output Report
+📊 终端输出报告示例
 
-The script generates beautifully formatted Markdown-style reports directly in
-your console.
-
+引擎会在控制台直接打印精美的 Markdown 格式报告，您可以直接将其复制到设计文档中：
+```
 ==========================================================================================
      环境工程学：推流式活性污泥法（CAS）智能设计与极值寻优计算书     
 ==========================================================================================
@@ -124,47 +137,33 @@ your console.
 ...
 
 ### 第四部分：工程设计合规性核验大厅
-| 约束级别 |     核验项目    |  实算数值 | 诊断状态 |       合规约束条件       |
-|----------|-----------------|-----------|----------|--------------------------|
-| 常规规范 |   容积负荷 Fv   |   0.90    |   偏离   |      经验区间 0.3-0.8    |
-| 强制红线 |  进水BOD/COD    |   0.67    |   优良   | 极差(必须>=0.25方可生化) |
-| 强制红线 | 夏季出水氨氮    |   0.50    |   达标   |      严禁超标 (应<=8)    |
+| 约束级别 |     核验项目    | 实算数值 | 诊断状态 |       合规约束条件       |
+|----------|-----------------|----------|----------|--------------------------|
+| 常规规范 |   容积负荷 Fv   |   0.90   |   偏离   |      经验区间 0.3-0.8    |
+| 强制红线 |  进水BOD/COD    |   0.67   |   优良   | 极差(必须>=0.25方可生化) |
+| 强制红线 | 夏季出水氨氮    |   0.50   |   达标   |      严禁超标 (应<=8)    |
 ...
 
  >> [系统黄灯]：妥协运行！出水水质强制标准【已达标】，但有 1 项工艺几何/负荷参数偏离建议规范。
+```
+🏗️ 核心代码结构
 
-🛠️ Project Structure
+  - CASConfig: 核心数据枢纽（@dataclass），承载水质边界条件、动力学常数与几何约束。
+  - step1_initial_design(): 正向初始体积与负荷计算。
+  - step2_seasonal_simulation(): 核心动力学模块，进行冬夏双温域生化反应推演。
+  - step3_geometry_and_hydraulics(): 建筑结构几何纠偏与管径流态计算。
+  - step4_aeration_layout(): 曝气网络排布规划。
+  - step5_engineering_audit(): 规范判定引擎，输出审计日志（红/黄/绿灯）。
+  - auto_optimize_design(): 基于优先级元组 (fatal_err, warn_err, cost) 的启发式空间搜索算法核心。
 
-  - CASConfig: Dataclass serving as the central parameter hub (Influent,
-    Effluent limits, Kinetic constants, Tank geometry).
-  - step1_initial_design(): Core forward design calculations (Volume, HRT,
-    Return Sludge).
-  - step2_seasonal_simulation(): Evaluates temperature-dependent kinetics,
-    nitrification limits, and oxygen demands.
-  - step3_geometry_and_hydraulics(): Calculates tank dimensions, corridor
-    ratios, and pipe diameters.
-  - step4_aeration_layout(): Distributes aeration diffusers geometrically.
-  - step5_engineering_audit(): The rule engine that outputs Fatal/Warning flags
-    based on textbooks and standard codes (e.g., GB18918-2002).
-  - auto_optimize_design(): The grid-search AI core leveraging tuple-comparison
-    logic for the priority constraints.
+⚠️ 免责声明
 
-⚠️ Disclaimer
+本项目遵循开源协议免费提供，仅供高校环境工程专业教学辅助、课设参考以及初步方案的概念推演使用。
+在实际污水处理厂的工程设计中，请务必结合实际地勘、水质监测报告，配合
+BioWin/GPS-X 等商业软件进行深化，并由拥有注册环保工程师执业资格的专业人员进行最终审核签章。
 
-This software is provided for educational purposes, conceptual design, and
-preliminary engineering evaluations. Real-world wastewater treatment plant
-design requires site-specific considerations, advanced modeling (like
-BioWin/GPS-X), and certification by licensed professional engineers.
+📄 许可协议
 
-🤝 Contributing
+本项目基于 MIT 许可证 予以开源。
 
-Contributions, issues, and feature requests are welcome! Feel free to check
-issues page.
-
-📄 License
-
-This project is licensed under the MIT License - see the LICENSE file for
-details.
-
-If you find this project helpful for your environmental engineering studies or
-work, please give it a ⭐️!
+如果您觉得这个工具对您的学习或工作有所启发，欢迎点亮右上角的 ⭐️ Star！
