@@ -1,0 +1,2 @@
+# 本引擎为纯 Python 原生编写，零第三方依赖 (Zero external dependencies)
+# 仅需 Python 3.7 或更高版本即可运行
