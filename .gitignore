@@ -1,0 +1,8 @@
+# Python 编译缓存
+__pycache__/
+*.py[cod]
+*$py.class
+
+# 系统隐藏文件
+.DS_Store
+Thumbs.db
